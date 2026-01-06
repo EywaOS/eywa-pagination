@@ -1,11 +1,12 @@
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
 
 pub mod error;
 pub use error::PaginationError;
 
 pub type Result<T> = std::result::Result<T, eywa_errors::AppError>;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct PaginationParams {
     pub page: u32,
     pub limit: u32,
@@ -68,7 +69,10 @@ impl PaginationParams {
 
     pub fn last_page_url(&self, base_url: &str) -> String {
         if self.has_last {
-            format!("{}?page={}&limit={}", base_url, self.total_pages, self.limit)
+            format!(
+                "{}?page={}&limit={}",
+                base_url, self.total_pages, self.limit
+            )
         } else {
             String::new()
         }
@@ -79,7 +83,7 @@ impl PaginationParams {
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct PaginatedResponse<T> {
     pub data: Vec<T>,
     pub pagination: PaginationParams,

@@ -8,3 +8,4 @@ serde = "1.0.228"
 thiserror = "2.0.17"
 axum = "0.8.8"
 eywa-errors = { git = "https://github.com/EywaOS/eywa-errors" }
+utoipa = "5.4.0"
