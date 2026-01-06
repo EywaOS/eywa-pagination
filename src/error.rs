@@ -27,7 +27,7 @@ impl From<PaginationError> for AppError {
             // These are client errors (Bad Request)
             PaginationError::InvalidPage(_)
             | PaginationError::InvalidLimit(_)
-            | PaginationError::InvalidParams(_) => AppError::ValidationError {
+            | PaginationError::InvalidParams(_) => AppError::ValidationField {
                 field: "pagination".to_string(),
                 message: err.to_string(),
             },
